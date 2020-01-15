@@ -8,18 +8,28 @@ books = [
     {'id': 0,
      'title': 'A Fire Upon the Deep',
      'author': 'Vernor Vinge',
-     'first_sentence': 'The coldsleep itself was dreamless.',
+     #'first_sentence': 'The coldsleep itself was dreamless.',
      'year_published': '1992'},
     {'id': 1,
      'title': 'The Ones Who Walk Away From Omelas',
      'author': 'Ursula K. Le Guin',
-     'first_sentence': 'With a clamor of bells that set the swallows soaring, the Festival of Summer came to the city Omelas, bright-towered by the sea.',
+     #'first_sentence': 'With a clamor of bells that set the swallows soaring, the Festival of Summer came to the city Omelas, bright-towered by the sea.',
      'published': '1973'},
     {'id': 2,
      'title': 'Dhalgren',
      'author': 'Samuel R. Delany',
-     'first_sentence': 'to wound the autumnal city.',
-     'published': '1975'}
+     #'first_sentence': 'to wound the autumnal city.',
+     'published': '1975'},
+     {'id': 3,
+     'title': 'Zen Para Distraidos',
+     'author': 'Monja',
+     #'first_sentence': 'retorne ao darma...',
+     'published': '2017'},
+     {'id': 4,
+     'title': 'A Monja e o Professor',
+     'author': 'Monja',
+     #'first_sentence': 'retorne ao darma...',
+     'published': '2019'}
 ]
 
 
@@ -30,6 +40,24 @@ def home():
 @app.route('/api/v1/resources/books/all', methods=['GET'])
 def api_all():
     return jsonify(books)
+
+# test the function below using:
+# http://127.0.0.1:5000/api/v1/resources/authors?author=Monja
+@app.route('/api/v1/resources/authors', methods=['GET'])
+def api_authors():
+    if 'author' in request.args:
+        author = str(request.args['author'])
+    else:
+        return "Error: No author name provided. Please specify one."
+     
+    results = []
+
+    for book in books:
+        if book['author'] == author:
+            results.append(book)
+    
+    return jsonify(results)
+
 
 @app.route('/api/v1/resources/books', methods=['GET'])
 def api_id():
