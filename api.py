@@ -41,24 +41,6 @@ def home():
 def api_all():
     return jsonify(books)
 
-# test the function below using:
-# http://127.0.0.1:5000/api/v1/resources/authors?author=Monja
-@app.route('/api/v1/resources/authors', methods=['GET'])
-def api_authors():
-    if 'author' in request.args:
-        author = str(request.args['author'])
-    else:
-        return "Error: No author name provided. Please specify one."
-     
-    results = []
-
-    for book in books:
-        if book['author'] == author:
-            results.append(book)
-    
-    return jsonify(results)
-
-
 @app.route('/api/v1/resources/books', methods=['GET'])
 def api_id():
     # Check if an ID was provided as part of the URL.
@@ -80,6 +62,23 @@ def api_id():
 
     # Use the jsonify function from Flask to convert our list of
     # Python dictionaries to the JSON format.
+    return jsonify(results)
+
+# test the function below using:
+# http://127.0.0.1:5000/api/v1/resources/authors?author=Monja
+@app.route('/api/v1/resources/authors', methods=['GET'])
+def api_authors():
+    if 'author' in request.args:
+        author = str(request.args['author'])
+    else:
+        return "Error: No author name provided. Please specify one."
+     
+    results = []
+
+    for book in books:
+        if book['author'] == author:
+            results.append(book)
+    
     return jsonify(results)
 
 app.run()
