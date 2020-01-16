@@ -8,31 +8,38 @@ books = [
     {'id': 0,
      'title': 'A Fire Upon the Deep',
      'author': 'Vernor Vinge',
-     'year_published': '1992'},
+     'year_published': '1992',
+     'status': 'available'},
     {'id': 1,
      'title': 'The Ones Who Walk Away From Omelas',
      'author': 'Ursula K. Le Guin',
-     'published': '1973'},
+     'published': '1973',
+     'status': 'available'},
     {'id': 2,
      'title': 'Dhalgren',
-     'author': 'Samuel R. Delany',
-     'published': '1975'},
+     'author': 'Samuel Delany',
+     'published': '1975',
+     'status': 'available'},
      {'id': 3,
      'title': 'Zen Para Distraidos',
-     'author': 'Monja',
-     'published': '2017'},
+     'author': 'Monja Coen',
+     'published': '2017',
+     'status': 'available'},
      {'id': 4,
      'title': 'A Monja e o Professor',
-     'author': 'Monja',
-     'published': '2018'},
+     'author': 'Monja Coen',
+     'published': '2018',
+     'status': 'available'},
      {'id': 5,
      'title': 'Aprenda a Viver o Agora',
      'author': 'Monja Coen',
-     'published': '2019'},
+     'published': '2019',
+     'status': 'available'},
      {'id': 6,
      'title': 'A Sabedoria da Transformação',
      'author': 'Monja Coen',
-     'published': '2014'}
+     'published': '2014',
+     'status': 'available'}
 
 ]
 
@@ -69,7 +76,7 @@ def api_id():
     return jsonify(results)
 
 # test the function below using:
-# http://127.0.0.1:5000/api/v1/resources/authors?author=Monja
+# http://localhost:5000/api/v1/resources/authors?author=Monja Coen
 @app.route('/api/v1/resources/authors', methods=['GET'])
 def api_authors():
     if 'author' in request.args:
@@ -84,5 +91,7 @@ def api_authors():
             results.append(book)
     
     return jsonify(results)
+
+
 
 app.run()
