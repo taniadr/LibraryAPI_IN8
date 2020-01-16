@@ -1,9 +1,11 @@
 import flask
 from flask import request, jsonify
+from flask import render_template
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
-
+    
+#Mock Objects
 books = [
     {'id': 0,
      'title': 'A Fire Upon the Deep',
@@ -43,6 +45,19 @@ books = [
 
 ]
 
+@app.route('/index')
+def index():
+
+    displays = []
+
+    for book in books:
+        temp = book['author']
+        if temp in displays:
+            temp = 'nada' #in order to avoid repetition of authors
+        else:   
+            displays.append(temp)
+
+    return render_template('index.html', title='The Library API', user=displays)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -92,6 +107,7 @@ def api_authors():
     
     return jsonify(results)
 
-
+#@app.route('/api/v1/resources/available', methods=['GET'])
+#def api_available():
 
 app.run()
