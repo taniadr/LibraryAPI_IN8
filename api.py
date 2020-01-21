@@ -57,7 +57,7 @@ def index():
         else:   
             displays.append(temp)
 
-    return render_template('index.html', title='The Library API', user=displays)
+    return render_template('index.html', title='The Library API', authors=displays)
 
 #This route returns all books in the database
 @app.route('/api/v1/resources/books/all', methods=['GET'])
