@@ -1,9 +1,9 @@
 import flask
-from flask import request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
 
@@ -122,5 +122,5 @@ def api_authors():
 
 #@app.route('/api/v1/resources/available', methods=['GET'])
 #def api_available():
-
-app.run()
+if __name__ == "__main__":
+    app.run(debug=True)

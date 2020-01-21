@@ -1,3 +1,5 @@
+https://github.com/taniadr/LibraryAPI_IN8
+
 Query Parameters - 
 To allow filtering by multiple database fields,
 to ensure flexibility.
@@ -6,6 +8,17 @@ to ensure flexibility.
 DataBase - 
 So far, hardcoded due to easiness to handle the framework.
 
-run:
-
 pip install flask_sqlalchemy in order to use SQLlite
+
+
+
+
+
+pip3 install virtualev
+
+virtualenv env
+
+	ativar no windows: 
+env\Scripts\activate
+
+pip3 install flask-sqlalchemy
