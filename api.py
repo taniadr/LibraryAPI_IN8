@@ -1,9 +1,22 @@
 import flask
 from flask import request, jsonify, render_template
+from flask_sqlalchemy import SQLAlchemy
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
-    
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+db = SQLAlchemy(app)
+
+class Library(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    author = db.Column(db.String(60), nullable=False)
+    year_published = db.Column(db.Integer, nullable=False)
+    status = db.Column(db.Integer, default=0)
+
+    def __repr__(self):
+        return '<Book %r>' % self.title
+
 #Mock Objects
 books = [
     {'id': 0,

@@ -5,3 +5,7 @@ to ensure flexibility.
 
 DataBase - 
 So far, hardcoded due to easiness to handle the framework.
+
+run:
+
+pip install flask_sqlalchemy in order to use SQLlite
