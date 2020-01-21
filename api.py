@@ -1,6 +1,5 @@
 import flask
-from flask import request, jsonify
-from flask import render_template
+from flask import request, jsonify, render_template
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -45,6 +44,7 @@ books = [
 
 ]
 
+@app.route('/')
 @app.route('/index')
 def index():
 
@@ -59,14 +59,12 @@ def index():
 
     return render_template('index.html', title='The Library API', user=displays)
 
-@app.route('/', methods=['GET'])
-def home():
-    return "'<h1>Distant Reading Archive</h1><p>This is a prototype API for distant reading.</p>'"
-
+#This route returns all books in the database
 @app.route('/api/v1/resources/books/all', methods=['GET'])
 def api_all():
     return jsonify(books)
 
+#This method requires a number input (book id)
 @app.route('/api/v1/resources/books', methods=['GET'])
 def api_id():
     # Check if an ID was provided as part of the URL.
@@ -90,6 +88,8 @@ def api_id():
     # Python dictionaries to the JSON format.
     return jsonify(results)
 
+
+# this route requires a string input (author)
 # test the function below using:
 # http://localhost:5000/api/v1/resources/authors?author=Monja Coen
 @app.route('/api/v1/resources/authors', methods=['GET'])
