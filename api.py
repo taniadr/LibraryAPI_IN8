@@ -1,5 +1,5 @@
 import flask
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = flask.Flask(__name__)
@@ -17,60 +17,27 @@ class Library(db.Model):
     def __repr__(self):
         return '<Book %r>' % self.title
 
-#Mock Objects
-books = [
-    {'id': 0,
-     'title': 'A Fire Upon the Deep',
-     'author': 'Vernor Vinge',
-     'year_published': '1992',
-     'status': 'available'},
-    {'id': 1,
-     'title': 'The Ones Who Walk Away From Omelas',
-     'author': 'Ursula K. Le Guin',
-     'published': '1973',
-     'status': 'available'},
-    {'id': 2,
-     'title': 'Dhalgren',
-     'author': 'Samuel Delany',
-     'published': '1975',
-     'status': 'available'},
-     {'id': 3,
-     'title': 'Zen Para Distraidos',
-     'author': 'Monja Coen',
-     'published': '2017',
-     'status': 'available'},
-     {'id': 4,
-     'title': 'A Monja e o Professor',
-     'author': 'Monja Coen',
-     'published': '2018',
-     'status': 'available'},
-     {'id': 5,
-     'title': 'Aprenda a Viver o Agora',
-     'author': 'Monja Coen',
-     'published': '2019',
-     'status': 'available'},
-     {'id': 6,
-     'title': 'A Sabedoria da Transformação',
-     'author': 'Monja Coen',
-     'published': '2014',
-     'status': 'available'}
-
-]
-
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['POST', 'GET'])
 def index():
+    if request.method == 'POST':
+        c_title = request.form['content_title']
+        c_author = request.form['content_author']
+        c_year = request.form['content_year']
+        c_status = request.form['content_status']
+        new_book = Library(title=c_title, author=c_author, year_published=c_year, status=c_status)
 
-    displays = []
+        try:
+            db.session.add(new_book)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue adding your book'
 
-    for book in books:
-        temp = book['author']
-        if temp in displays:
-            temp = 'nada' #in order to avoid repetition of authors
-        else:   
-            displays.append(temp)
 
-    return render_template('index.html', title='The Library API', authors=displays)
+    else:
+        books = Library.query.order_by(Library.author).all()
+        return render_template('index.html', books=books)
+
 
 #This route returns all books in the database
 @app.route('/api/v1/resources/books/all', methods=['GET'])

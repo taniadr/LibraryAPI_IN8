@@ -22,3 +22,58 @@ virtualenv env
 env\Scripts\activate
 
 pip3 install flask-sqlalchemy
+
+
+
+
+
+-> Continue from 20:00 min from https://www.youtube.com/watch?v=Z1RJmh_Oqe
+
+
+
+-> Continue from 20:00 min from https://www.youtube.com/watch?v=Z1RJmh_OqeA
+
+
+
+index.html
+
+Prev Mock Obj
+#Mock Objects
+books = [
+    {'id': 0,
+     'title': 'A Fire Upon the Deep',
+     'author': 'Vernor Vinge',
+     'year_published': '1992',
+     'status': 'available'},
+    {'id': 1,
+     'title': 'The Ones Who Walk Away From Omelas',
+     'author': 'Ursula K. Le Guin',
+     'published': '1973',
+     'status': 'available'},
+    {'id': 2,
+     'title': 'Dhalgren',
+     'author': 'Samuel Delany',
+     'published': '1975',
+     'status': 'available'},
+     {'id': 3,
+     'title': 'Zen Para Distraidos',
+     'author': 'Monja Coen',
+     'published': '2017',
+     'status': 'available'},
+     {'id': 4,
+     'title': 'A Monja e o Professor',
+     'author': 'Monja Coen',
+     'published': '2018',
+     'status': 'available'},
+     {'id': 5,
+     'title': 'Aprenda a Viver o Agora',
+     'author': 'Monja Coen',
+     'published': '2019',
+     'status': 'available'},
+     {'id': 6,
+     'title': 'A Sabedoria da Transformação',
+     'author': 'Monja Coen',
+     'published': '2014',
+     'status': 'available'}
+
+]

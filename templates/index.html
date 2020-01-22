@@ -1,16 +1,55 @@
 {% extends 'base.html' %}
 
 {% block head %}
-
-<title>{{ title }} - Beta</title>
-
+<title>Master Book API</title>
 {% endblock %}
 
 {% block body %}
+<div class="content">
+    <div class="content">
+    <h1 style="text-align: left">Books Master</h1>
+    {% if books|length < 1 %}
+    <h4 style="text-align: center">There are no books. Add one below!</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Status</th>
+        </tr>
+        {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.year_published }}</td>
+                <td>
+                    <a href="">Delete</a>
+                    <br>
+                    <a href="">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
 
-<h1>Library API</h1> 
-<p>This is a prototype API for distant reading.</p>
-<h1>Authors available to grab: </h1>
-<p> {{ authors }} </p>
+    <div class="form">
+        <form action="/" method="POST">
+            <h2> Add new Book</h2>
+            <input type="text" name="content_title">
+            <label for="content_title">Title</label><br><br>
+           
+            <input type="text" name="content_author">
+            <label for="content_author">Author</label><br><br>
+        
+            <input type="number" name="content_year">
+            <label for="content_year">Year</label><br><br>
+            
+            <input type="text" name="content_status">
+            <label for="content_status">Status</label><br><br>
 
+            <input type="submit" value="Add Book">
+        </form>
+    </div>
+</div>     
 {% endblock %}
