@@ -1,5 +1,6 @@
-from flask import Flask, request, jsonify, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -14,6 +15,7 @@ class Library(db.Model):
 
     def __repr__(self):
         return '<Book %r>' % self.id
+
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -49,13 +51,13 @@ def delete(id):
 
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
-    book_to_update = Library.query.get_or_404(id)
+    book = Library.query.get_or_404(id)
 
     if request.method == 'POST':
-        book_to_update.title = request.form['content_title']
-        book_to_update.author = request.form['content_author']
-        book_to_update.year_published = request.form['content_year']
-        book_to_update.status = request.form['content_status']
+        book.title = request.form['content_title']
+        book.author = request.form['content_author']
+        book.year_published = request.form['content_year']
+        book.status = request.form['content_status']
         
         try: 
             db.session.commit()
@@ -64,7 +66,7 @@ def update(id):
             return 'There was an issue updating the book'
     
     else:
-        return render_template('update.html', book=book_to_update)
+        return render_template('update.html', book=book)
 
 if __name__ == "__main__":
     app.run(debug=True)
