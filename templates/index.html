@@ -23,9 +23,9 @@
                 <td>{{ book.author }}</td>
                 <td>{{ book.year_published }}</td>
                 <td>
-                    <a href="/delete/{{ book.id }}">Delete</a>
+                    <a href="/delete/{{book.id}}">Delete</a>
                     <br>
-                    <a href="">Update</a>
+                    <a href="/update/{{book.id}}">Update</a>
                 </td>
             </tr>
         {% endfor %}
@@ -44,7 +44,10 @@
             <input type="number" name="content_year">
             <label for="content_year">Year</label><br><br>
             
-            <input type="text" name="content_status">
+            <select name="content_status">
+                <option value="Available">Available</option>
+                <option value="Unavailable">Unavailable</option>
+            </select>
             <label for="content_status">Status</label><br><br>
 
             <input type="submit" value="Add Book">

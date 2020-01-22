@@ -1,9 +1,7 @@
-import flask
-from flask import Flask, request, jsonify, render_template, request
+from flask import Flask, request, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
-app = flask.Flask(__name__)
-
+app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
 
@@ -12,10 +10,10 @@ class Library(db.Model):
     title = db.Column(db.String(200), nullable=False)
     author = db.Column(db.String(60), nullable=False)
     year_published = db.Column(db.Integer, nullable=False)
-    status = db.Column(db.Integer, default=0)
+    status = db.Column(db.String(15), nullable=False)
 
     def __repr__(self):
-        return '<Book %r>' % self.title
+        return '<Book %r>' % self.id
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -31,8 +29,7 @@ def index():
             db.session.commit()
             return redirect('/')
         except:
-            return 'There was an issue adding your book'
-
+            return 'There was an issue adding the book'
 
     else:
         books = Library.query.order_by(Library.author).all()
@@ -50,56 +47,24 @@ def delete(id):
     except:
         return 'There was a problem deleting the book'
 
-#This route returns all books in the database
-@app.route('/api/v1/resources/books/all', methods=['GET'])
-def api_all():
-    return jsonify(books)
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    book_to_update = Library.query.get_or_404(id)
 
-#This method requires a number input (book id)
-@app.route('/api/v1/resources/books', methods=['GET'])
-def api_id():
-    # Check if an ID was provided as part of the URL.
-    # If ID is provided, assign it to a variable.
-    # If no ID is provided, display an error in the browser.
-    if 'id' in request.args:
-        id = int(request.args['id'])
-    else:
-        return "Error: No id field provided. Please specify an id."
-
-    # Create an empty list for our results
-    results = []
-
-    # Loop through the data and match results that fit the requested ID.
-    # IDs are unique, but other fields might return many results
-    for book in books:
-        if book['id'] == id:
-            results.append(book)
-
-    # Use the jsonify function from Flask to convert our list of
-    # Python dictionaries to the JSON format.
-    return jsonify(results)
-
-
-# this route requires a string input (author)
-# test the function below using:
-# http://localhost:5000/api/v1/resources/authors?author=Monja Coen
-@app.route('/api/v1/resources/authors', methods=['GET'])
-def api_authors():
-    if 'author' in request.args:
-        author = str(request.args['author'])
-    else:
-        return "Error: No author name provided. Please specify one."
-     
-    results = []
-
-    for book in books:
-        if book['author'] == author:
-            results.append(book)
+    if request.method == 'POST':
+        book_to_update.title = request.form['content_title']
+        book_to_update.author = request.form['content_author']
+        book_to_update.year_published = request.form['content_year']
+        book_to_update.status = request.form['content_status']
+        
+        try: 
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue updating the book'
     
-    return jsonify(results)
+    else:
+        return render_template('update.html', book=book_to_update)
 
-
-#@app.route('/api/v1/resources/available', methods=['GET'])
-#def api_available():
 if __name__ == "__main__":
     app.run(debug=True)
