@@ -1,0 +1,17 @@
+Requirements
+
+"Imagine que você ficou responsável por desenvolver o backend do sistema de uma biblioteca. Crie uma API RESTful para o cadastro, edição, listagem e exclusão dos livros (título, autor, edição) e o controle de entradas e saídas."
+
+
+
+#To add a New book, use the form in the index page.
+
+#To edit, use the "update" option on the right side of each book record
+
+#The list is displayed in the main page.
+
+#To delete, use the option on the right side of each book record.
+
+#The input/output control is reserved to the column "Status". If the book is in the library, it will be avaible. Otherwise if it is already borrowed.
+
+-> Edition is represented by the year of publication.
