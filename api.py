@@ -39,6 +39,17 @@ def index():
         return render_template('index.html', books=books)
 
 
+@app.route('/delete/<int:id>')
+def delete(id):
+    book_to_delete = Library.query.get_or_404(id)
+
+    try:
+        db.session.delete(book_to_delete)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return 'There was a problem deleting the book'
+
 #This route returns all books in the database
 @app.route('/api/v1/resources/books/all', methods=['GET'])
 def api_all():
@@ -86,6 +97,7 @@ def api_authors():
             results.append(book)
     
     return jsonify(results)
+
 
 #@app.route('/api/v1/resources/available', methods=['GET'])
 #def api_available():
