@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- encoding:utf-8 -*-
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -16,6 +18,17 @@ class Library(db.Model):
     def __repr__(self):
         return '<Book %r>' % self.id
 
+#this will be for proper control of books in/out
+class Controle(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    bookId = db.Column(db.Integer, nullable=False)
+    userName = db.Column(db.String(200), nullable=False)
+    dateBorrow = db.Column(db.DateTime, default=datetime.utcnow)
+    dateReturn = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return '<Controle %r>' % self.id
+
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -28,7 +41,7 @@ def index():
 
         try:
             db.session.add(new_book)
-            db.session.commit()
+            db.session.commit()            
             return redirect('/')
         except:
             return 'There was an issue adding the book'
@@ -58,7 +71,7 @@ def update(id):
         book.author = request.form['content_author']
         book.year_published = request.form['content_year']
         book.status = request.form['content_status']
-        
+
         try: 
             db.session.commit()
             return redirect('/')
