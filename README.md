@@ -16,6 +16,4 @@ Rode a API, e abra no localhost:5000, conforme a img abaixo.
 ![lapi_prompt1](/images/prompt1.png)
 Prompt1: Execução 
 
-*open your localhost:5000*
-
 ![lapi_prompt2](/images/prompt2.png)
