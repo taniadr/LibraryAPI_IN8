@@ -1,11 +1,17 @@
 # LibraryAPI_IN8
 library backend - i n 8
 
-1 -----------RUNNING
+1 -----------RUNNING on Windows
 
-*activate the virtualenv*
+Instale o virtualenv do pip + ative o newEnv:
 
-*run python api.py*
+**pip install virtualenv**
+
+**newEnv\Scripts\activate**
+
+Rode a API, e abra no localhost:5000, conforme a img abaixo.
+
+**run python api.py**
 
 ![lapi_prompt1](/images/prompt1.png)
 Prompt1: Execução 
