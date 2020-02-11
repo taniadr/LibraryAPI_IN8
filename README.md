@@ -5,13 +5,13 @@ library backend - i n 8
 
 Instale o virtualenv do pip + ative o newEnv:
 
-**pip install virtualenv**
+> **pip install virtualenv**
 
-**newEnv\Scripts\activate**
+> **newEnv\Scripts\activate**
 
 Rode a API, e abra no localhost:5000, conforme a img abaixo.
 
-**run python api.py**
+> **run python api.py**
 
 ![lapi_prompt1](/images/prompt1.png)
 Prompt1: Execução 
